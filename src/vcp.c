@@ -72,7 +72,7 @@ void init_vc_packet(vcp_packet *packet, vcp_type type, int length, const char *d
 		packet->data = NULL;
 	} else {
 		packet->data = (char *)malloc(sizeof(char) * length);
-		strcpy(packet->data, data); 	
+		memcpy(packet->data, data, length); 	
 	}
 } 
 

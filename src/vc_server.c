@@ -40,7 +40,7 @@ void set_ip_addr(struct vc_server *server, int fd_conn) {
 	}
 	inet_ntop(AF_INET, &(addr.sin_addr), addr_str, IP_ADDR_LEN);
 	
-	strcpy(server->ip_addr, addr_str);
+	memcpy(server->ip_addr, addr_str, IP_ADDR_LEN);
 }
 
 int vc_read(int fd, vcp_packet *packet) {
@@ -309,11 +309,11 @@ void handle(const struct vc_server *server, const vcp_packet *request, vcp_packe
 	
 	switch((int)request->type) {
 		case INFO:
-			if(strncmp(request->data, "hostname\r\n", request->length) == 0) {
+			if(strncmp(request->data, "hostname", request->length) == 0) {
 				length = strlen(server->hostname);
 				init_vc_packet(response, INFO, length, server->hostname);	
 
-			} else if(strncmp(request->data, "address\r\n", request->length) == 0) {
+			} else if(strncmp(request->data, "address", request->length) == 0) {
 				length = strlen(server->ip_addr);
 				init_vc_packet(response, INFO, length, server->ip_addr);
 
