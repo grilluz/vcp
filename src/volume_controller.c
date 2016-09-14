@@ -17,7 +17,7 @@ void volume_controller_open(struct mixer_controller *c) {
 	snd_mixer_selem_register(c->handle, NULL, NULL);
 	snd_mixer_load(c->handle);
 
-	snd_mixer_selem_id_malloc(&(c->sid));
+	snd_mixer_selem_id_alloca(&(c->sid));
 	snd_mixer_selem_id_set_index(c->sid, 0);
 	snd_mixer_selem_id_set_name(c->sid, c->selem_name);
 	c->elem = snd_mixer_find_selem(c->handle, c->sid);
