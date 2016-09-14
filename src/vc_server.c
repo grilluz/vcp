@@ -167,8 +167,8 @@ void start_vc_server(struct vc_server *server) {
 	bool one_time_flag = true;
 
 	struct mixer_controller mixer_ctrl;
-	strcpy(mixer_ctrl.card, "default");
-	strcpy(mixer_ctrl.selem_name, "Master");
+	mixer_ctrl.card = "default";
+	mixer_ctrl.selem_name = "Master";
 	
 	//init mixer interface
 	volume_controller_open(&mixer_ctrl);

@@ -13,8 +13,8 @@ struct mixer_controller {
 	snd_mixer_elem_t *elem;
 	snd_mixer_t *handle;
 	snd_mixer_selem_id_t *sid;
-	char *card;
-	char *selem_name;
+	const char *card;
+	const char *selem_name;
 };
 
 void set_volume(snd_mixer_elem_t *elem, const long volume);
