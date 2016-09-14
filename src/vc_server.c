@@ -176,7 +176,11 @@ void start_vc_server(struct vc_server *server) {
 		return;
 	}
 
+	//init response struct 
+	//avoid error in freeing not allocated memory when 'destroy_vc_packet' is called
+	response.data = NULL;
 
+	//init server
 	if(server == NULL) {
 		return;
 	}
