@@ -65,13 +65,13 @@ void init_vc_packet(vcp_packet *packet, vcp_type type, int length, const char *d
 
 	printf("\nDBG len = %d\n", length);
 
-	destroy_vc_packet(packet);
+	//destroy_vc_packet(packet);
 
 	if(length == 0) {
 		//printf("DBG if length equals zero\n");
 		packet->data = NULL;
 	} else {
-		packet->data = (char *)malloc(sizeof(char) * length);
+		packet->data = (char *)realloc(packet->data, sizeof(char) * length);
 		memcpy(packet->data, data, length); 	
 	}
 } 
