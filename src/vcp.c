@@ -65,17 +65,15 @@ void init_vc_packet(vcp_packet *packet, vcp_type type, int length, const char *d
 
 	printf("\nDBG len = %d\n", length);
 
+	destroy_vc_packet(packet);
+
 	if(length == 0) {
 		//printf("DBG if length equals zero\n");
 		packet->data = NULL;
 	} else {
 		packet->data = (char *)malloc(sizeof(char) * length);
-		if(data != NULL) {
-			strcpy(packet->data, data);
-		} else {
-			packet->data = NULL;
-		}
-	} 	
+		strcpy(packet->data, data); 	
+	}
 } 
 
 void destroy_vc_packet(vcp_packet *packet) {
@@ -85,5 +83,3 @@ void destroy_vc_packet(vcp_packet *packet) {
 
 	free(packet->data);
 }
-
-
