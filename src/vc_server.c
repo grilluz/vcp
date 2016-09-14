@@ -158,12 +158,12 @@ int init_vc_server(struct vc_server *server, int max_conn) {
 
 void start_vc_server(struct vc_server *server) {
 	fd_set active_fds, read_fds;
-	int rc, i, new_conn_fd, bytes;
+	int fd_sock;
+	int rc, i, new_conn_fd, max_connections, bytes;
 	struct sockaddr_in client;
 	socklen_t client_len;
 	vcp_packet request, response;
-	int fd_sock = server->fd;
-	int max_connections = server->max_conn;
+	
 	bool one_time_flag = true;
 
 	struct mixer_controller mixer_ctrl;
@@ -181,6 +181,8 @@ void start_vc_server(struct vc_server *server) {
 		return;
 	}
 
+	fd_sock = server->fd;
+	max_connections = server->max_conn;
 	if(listen(fd_sock, max_connections) < 0) {
 		return;
 	}
@@ -203,10 +205,10 @@ void start_vc_server(struct vc_server *server) {
 
 		if(rc < 0) {
 			//error
-			return;
+			break;
 		} else if(rc == 0) {
 			//timeout expires
-			return;
+			break;
 		} else {
 			//rc now contais the number of ready file 
 			//descriptors in descriptor sets
@@ -255,12 +257,14 @@ void start_vc_server(struct vc_server *server) {
 							//remove the fd from active descriptor sets
 							FD_CLR(i, &active_fds);
 						} else {
+							int c;
+
 							//display request
 							printf("\nRequest from %d:\n", i);
 							printf("\ttype  : %d\n", (int)request.type);
 							printf("\tlength: %d\n", request.length);
 							printf("\tdata  : ");
-							for(int c = 0; c < request.length; c++) {
+							for(c = 0; c < request.length; c++) {
 								printf("%c", request.data[c]);
 							}
 
@@ -272,7 +276,7 @@ void start_vc_server(struct vc_server *server) {
 							printf("\ttype  : %d\n", (int)response.type);
 							printf("\tlength: %d\n", response.length);
 							printf("\tdata  : ");
-							for(int c = 0; c < response.length; c++) {
+							for(c = 0; c < response.length; c++) {
 								printf("%c", response.data[c]);
 							}
 							printf("\n");
