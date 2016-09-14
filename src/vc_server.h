@@ -2,6 +2,7 @@
 #define VC_SERVER_H
 
 #include <arpa/inet.h>
+#include "volume_controller.h"
 
 #include "vcp.h"
 

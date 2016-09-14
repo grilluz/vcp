@@ -8,7 +8,6 @@
 /*
  * volume range 0~100
  */
-//void volume_controller(long *volume, void (*callback)(snd_mixer_elem_t*, long*));
 
 struct mixer_controller {
 	snd_mixer_elem_t *elem;

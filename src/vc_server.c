@@ -169,11 +169,13 @@ void start_vc_server(struct vc_server *server) {
 	struct mixer_controller mixer_ctrl;
 	strcpy(mixer_ctrl.card, "default");
 	strcpy(mixer_ctrl.selem_name, "Master");
+	
 	//init mixer interface
 	volume_controller_open(&mixer_ctrl);
 	if(mixer_ctrl.handle == NULL || mixer_ctrl.sid == NULL) {
 		return;
 	}
+
 
 	if(server == NULL) {
 		return;
