@@ -28,6 +28,6 @@ int init_vc_server(struct vc_server *server, int max_conn);
 
 void start_vc_server(struct vc_server *server);
 
-void handle(const struct vc_server *server, const vcp_packet *request, vcp_packet *response);
+void handle(const struct vc_server *server, const vcp_packet *request, vcp_packet *response, const struct mixer_controller *controller);
 
 #endif

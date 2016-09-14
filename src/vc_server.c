@@ -166,6 +166,15 @@ void start_vc_server(struct vc_server *server) {
 	int max_connections = server->max_conn;
 	bool one_time_flag = true;
 
+	struct mixer_controller mixer_ctrl;
+	strcpy(mixer_ctrl.card, "default");
+	strcpy(mixer_ctrl.selem_name, "Master");
+	//init mixer interface
+	volume_controller_open(&mixer_ctrl);
+	if(mixer_ctrl.handle == NULL || mixer_ctrl.sid == NULL) {
+		return;
+	}
+
 	if(server == NULL) {
 		return;
 	}
@@ -253,7 +262,7 @@ void start_vc_server(struct vc_server *server) {
 								printf("%c", request.data[c]);
 							}
 
-							handle(server, &request, &response);
+							handle(server, &request, &response, &mixer_ctrl);
 							vc_write(i, &response);
 
 							//display response
@@ -272,11 +281,14 @@ void start_vc_server(struct vc_server *server) {
 			} //end FOR
 		} //end IF
 	} //end of WHILE
+
 	destroy_vc_packet(&request);
-	destroy_vc_packet(&response);		
+	destroy_vc_packet(&response);	
+
+	volume_controller_close(&mixer_ctrl);	
 }
 
-void handle(const struct vc_server *server, const vcp_packet *request, vcp_packet *response) {
+void handle(const struct vc_server *server, const vcp_packet *request, vcp_packet *response, const struct mixer_controller *controller) {
 	int length;
 	long volume;
 	char volume_str[VOLUME_LEN];
@@ -305,7 +317,7 @@ void handle(const struct vc_server *server, const vcp_packet *request, vcp_packe
 			length = request->length;
 			
 			if(length == 0) {
-				volume_controller(&volume, get_volume);
+				get_volume(controller->elem, &volume);
 				
 				//volume range is 0~100, so there isn't loss of data in the cast
 				vc_int_to_bin((int)volume, volume_str, VOLUME_LEN);
@@ -317,7 +329,7 @@ void handle(const struct vc_server *server, const vcp_packet *request, vcp_packe
 				vc_bin_to_int(&volume_int, request->data, request->length);
 
 				volume = volume_int;
-				volume_controller(&volume, set_volume);
+				set_volume(controller->elem, volume);
 
 				init_vc_packet(response, VOLUME, 0, NULL);
 
