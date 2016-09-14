@@ -1,0 +1,46 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ERROR	vcp.h	/^	ERROR$/;"	e	enum:type
+HOSTNAME_LEN	vc_server.h	9;"	d
+INFO	vcp.h	/^	INFO = 0,$/;"	e	enum:type
+IP_ADDR_LEN	vc_server.h	10;"	d
+LENGTH_LEN	vcp.h	38;"	d
+MAX_DATA_LEN	vcp.h	39;"	d
+TYPE_LEN	vcp.h	37;"	d
+VCP_H	vcp.h	34;"	d
+VC_PORT	vc_server.h	8;"	d
+VC_SERVER_H	vc_server.h	2;"	d
+VOLUME	vcp.h	/^	VOLUME,$/;"	e	enum:type
+VOLUME_CONTROLLER_H	volume_controller.h	2;"	d
+VOLUME_LEN	volume_controller.h	6;"	d
+_vcp_packet	vcp.h	/^typedef struct _vcp_packet {$/;"	s
+data	vcp.h	/^	char *data;$/;"	m	struct:_vcp_packet
+destroy_vc_packet	vcp.c	/^void destroy_vc_packet(vcp_packet *packet) {$/;"	f
+fd	vc_server.h	/^	int fd;	$/;"	m	struct:vc_server
+get_volume	volume_controller.c	/^void get_volume(snd_mixer_elem_t *elem, long *volume) {$/;"	f
+handle	vc_server.c	/^void handle(const struct vc_server *server, const vcp_packet *request, vcp_packet *response) {$/;"	f
+hostname	vc_server.h	/^	char hostname[HOSTNAME_LEN];$/;"	m	struct:vc_server
+init_vc_packet	vcp.c	/^void init_vc_packet(vcp_packet *packet, vcp_type type, int length, const char *data) {$/;"	f
+init_vc_server	vc_server.c	/^int init_vc_server(struct vc_server *server, int max_conn) {$/;"	f
+ip_addr	vc_server.h	/^	char ip_addr[INET_ADDRSTRLEN];$/;"	m	struct:vc_server
+length	vcp.h	/^	int length;$/;"	m	struct:_vcp_packet
+max_conn	vc_server.h	/^	int max_conn;$/;"	m	struct:vc_server
+set_hostname	vc_server.c	/^void set_hostname(struct vc_server *server) {$/;"	f
+set_ip_addr	vc_server.c	/^void set_ip_addr(struct vc_server *server, int fd_conn) {$/;"	f
+set_volume	volume_controller.c	/^void set_volume(snd_mixer_elem_t *elem, long *volume) {$/;"	f
+start_vc_server	vc_server.c	/^void start_vc_server(struct vc_server *server) {$/;"	f
+type	vcp.h	/^	vcp_type type;$/;"	m	struct:_vcp_packet
+type	vcp.h	/^typedef enum type {$/;"	g
+vc_bin_to_int	vcp.c	/^void vc_bin_to_int(int *value, const char *bin, int len) {$/;"	f
+vc_int_to_bin	vcp.c	/^void vc_int_to_bin(int value, char *bin, int len) {$/;"	f
+vc_read	vc_server.c	/^int vc_read(int fd, vcp_packet *packet) {$/;"	f
+vc_server	vc_server.h	/^struct vc_server {$/;"	s
+vc_type_to_str	vcp.c	/^void vc_type_to_str(int value, char *str) {$/;"	f
+vc_write	vc_server.c	/^int vc_write(int fd, const vcp_packet *packet) {$/;"	f
+vcp_packet	vcp.h	/^} vcp_packet; $/;"	t	typeref:struct:_vcp_packet
+vcp_type	vcp.h	/^} vcp_type;$/;"	t	typeref:enum:type
+volume_controller	volume_controller.c	/^void volume_controller(long *volume, void (*callback)(snd_mixer_elem_t *, long*)) {$/;"	f
